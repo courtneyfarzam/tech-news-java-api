@@ -1,15 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Homepage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Just Tech News</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<div layout:fragment="content">
-    <ol>
-        <li th:each="post : ${postList}" class="post-list">
-            <div th:insert="fragments/post-fragment :: post-fragment"></div>
-        </li>
-    </ol>
+<div class="wrapper">
+    <header>
+        <h1>
+            <a href="/">Just Tech News</a>
+        </h1>
+        <nav>
+            <div th:if="${loggedIn}">
+                <a th:href="@{/dashboard}">dashboard</a>
+                <a th:href="@{/users/logout}">logout</a>
+            </div>
+            <div th:unless="${loggedIn}">
+                <a th:href="@{/login}">login</a>
+            </div>
+        </nav>
+    </header>
+
+    <main layout:fragment="content">
+        <ol>
+            <li th:each="post : ${postList}">
+                <div th:insert="fragments/post-fragment :: post-fragment"></div>
+            </li>
+        </ol>
+    </main>
+
+    <footer>
+        Thanks for visiting!
+    </footer>
 </div>
+
 </body>
 </html>
