@@ -11,11 +11,14 @@ import java.util.Objects;
 @Table(name = "comment")
 public class Comment implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String commentText;
     private Integer userId;
     private Integer postId;
+
+    public Comment() {
+    }
 
     public Comment(Integer id, String commentText, Integer userId, Integer postId) {
         this.id = id;

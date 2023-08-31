@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class Post implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
     private String postUrl;
@@ -32,8 +32,12 @@ public class Post implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "updated_at")
     private Date updatedAt = new Date();
-    @OneToMany(mappedBy = "postId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "postId")
     private List<Comment> comments;
+
+    public Post() {
+    }
 
     public Post(Integer id, String title, String postUrl, String userName, int voteCount, Integer userId) {
         this.id = id;

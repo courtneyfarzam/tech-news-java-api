@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String username;
     @Column(unique = true)
@@ -22,14 +22,19 @@ public class User implements Serializable {
     @Transient
     boolean loggedIn;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId")
     private List<Post> posts;
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
     private List<Vote> votes;
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
 
     private List<Comment> comments;
 
+    public User() {
+    }
     public User(Integer id, String username, String email, String password) {
         this.id = id;
         this.username = username;
